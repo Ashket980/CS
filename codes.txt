@@ -1,0 +1,413 @@
+
+1.
+
+ import socket
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+HOST='10.80.0.111'
+port=8999
+s.bind((HOST,port))
+s.listen(5)
+print("server started")
+client_sockets,addr=s.accept()
+while True:
+    mssg_rec=client_sockets.recv(1024)
+    mssg_rec=mssg_rec.decode()
+    print("client : ",mssg_rec)
+    msg_snd=input("Write message to the client : ")
+    client_sockets.send(msg_snd.encode("ascii"))
+client_sockets.close()
+
+
+
+
+ import socket
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+LOCALHOST='10.80.0.111'
+port=8999
+s.connect((LOCALHOST,port))
+print("new client created")
+while True:
+    client_mssg=input("Write message to the server : ")
+    s.send(client_mssg.encode())
+    msg_rec=s.recv(1024)
+    msg_rec=msg_rec.decode()
+    print("server : ",msg_rec)
+    if msg_rec=='exit':
+        break
+s.close()
+
+
+
+
+2.
+
+
+
+//client
+import socket
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+LOCALHOST="127.0.0.1"
+port = 9990
+s.connect((LOCALHOST,8080))
+print("new client created")
+while True:
+    client_message=input("ME:")
+    s.send(client_message.encode())
+    msg_received=s.recv(1024)
+    msg_received=msg_received.decode()
+    print("SERVER:",msg_received)
+    if msg_received=='exit':
+        break;
+s.close()
+
+
+
+
+//server
+import socket
+server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+LOCALHOST='127.0.0.1'
+port = 9990
+server_socket.bind((LOCALHOST, 8080))
+server_socket.listen(5)
+print("Server Started...")
+client_sockets,addr=server_socket.accept()
+while True:
+    msg_received=client_sockets.recv(1024)
+    msg_received=msg_received.decode()
+    print("Client:",msg_received)
+    msg_send=input("Me")
+    client_sockets.send(msg_send.encode("ascii"))
+client_sockets.close()
+
+
+
+
+
+3.
+
+//client
+import socket
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+LOCALHOST="127.0.0.1"
+port = 9990
+s.connect((LOCALHOST,8080))
+print("new client created")
+while True:
+    client_message=input("ME:")
+    s.send(client_message.encode())
+    msg_received=s.recv(1024)
+    msg_received=msg_received.decode()
+    print("SERVER:",msg_received)
+    if msg_received=='exit':
+        break;
+s.close()
+
+
+
+
+
+//server
+import socket
+server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+LOCALHOST='127.0.0.1'
+port = 9990
+server_socket.bind((LOCALHOST, 8080))
+server_socket.listen(5)
+print("Server Started...")
+client_sockets,addr=server_socket.accept()
+while True:
+    msg_received=client_sockets.recv(1024)
+    msg_received=msg_received.decode()
+    print("Client:",msg_received)
+    msg_send=input("Me")
+    client_sockets.send(msg_send.encode("ascii"))
+client_sockets.close()
+
+
+
+
+4.
+
+
+//server
+
+
+import socket
+
+if __name__ == '__main__':
+    # Defining Socket
+    host = '127.0.0.1'
+    port = 8080
+    totalclient = int(input('Enter number of clients: '))
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((host, port))
+    sock.listen(totalclient)
+    # Establishing Connections
+    connections = []
+    print('Initiating clients')
+    for i in range(totalclient):
+        conn = sock.accept()
+        connections.append(conn)
+        print('Connected with client', i + 1)
+
+    fileno = 0
+    idx = 0
+    for conn in connections:
+        # Receiving File Data
+        idx += 1
+        data = conn[0].recv(1024).decode()
+
+        if not data:
+            continue
+        # Creating a new file at server end and writing the data
+        filename = 'output' + str(fileno) + '.txt'
+        fileno = fileno + 1
+        fo = open(filename, "w")
+        while data:
+            if not data:
+                break
+            else:
+                fo.write(data)
+                data = conn[0].recv(1024).decode()
+
+        print()
+        print('Receiving file from client', idx)
+        print()
+        print('Received successfully! New filename is:', filename)
+        fo.close()
+    # Closing all Connections
+    for conn in connections:
+        conn[0].close()
+
+
+
+//client
+
+import socket
+
+# Creating Client Socket
+if __name__ == '__main__':
+    host = '127.0.0.1'
+    port = 8080
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Connecting with Server
+    sock.connect((host, port))
+
+    while True:
+
+        filename = input('Input filename you want to send: ')
+        try:
+            # Reading file and sending data to server
+            fi = open(filename, "r")
+            data = fi.read()
+            if not data:
+                break
+            while data:
+                sock.send(str(data).encode())
+                data = fi.read()
+            # File is closed after data is sent
+            fi.close()
+
+        except IOError:
+            print('You entered an invalid filename!\
+				Please enter a valid name')
+
+
+
+
+5.
+
+
+
+6.Program to swap two numbers
+#!/bin/bash
+first=5
+second=10
+temp=$first
+first=$second
+second=$temp
+echo "After swapping, numbers are:“
+echo "first = $first, second = $second"
+
+
+
+7. 
+
+ import math
+
+# step 1
+p = 3
+q = 7
+
+# step 2
+n = p*q
+print("n =", n)
+
+# step 3
+phi = (p-1)*(q-1)
+
+# step 4
+e = 2
+while(e<phi):
+    if (math.gcd(e, phi) == 1):
+        break
+    else:
+        e += 1
+
+print("e =", e)
+# step 5
+k = 2
+d = ((k*phi)+1)/e
+print("d =", d)
+print(f'Public key: {e, n}')
+print(f'Private key: {d, n}')
+
+# plain text
+msg = 11
+print(f'Original message:{msg}')
+
+# encryption
+C = pow(msg, e)
+C = math.fmod(C, n)
+print(f'Encrypted message: {C}')
+
+# decryption
+M = pow(C, d)
+M = math.fmod(M, n)
+
+print(f'Decrypted message: {M}')
+
+
+
+
+
+
+ def encrypt(plain_text,shift_keys):
+    cipher_text=""
+    for char in plain_text:
+        if char in alphabet:
+            position=alphabet.index(char)
+            new_position=(position+shift_keys)%26
+            cipher_text=cipher_text+alphabet[new_position]
+        else:
+            cipher_text+=char
+    print(f'Equivalent cupher text:{cipher_text}')
+
+def decrypt(cipher_text,shift_key):
+    plain_text=""
+    for char in cipher_text:
+        if char in alphabet:
+            position=alphabet.index(char)
+            new_position=(position-shift_key)%26
+            plain_text=plain_text+alphabet[new_position]
+        else:
+            plain_text+=char
+    print(f'Equivalent plain text:{plain_text}')
+EOP=False
+while not EOP:
+    Choice=input('What do you want encrypt or decrypt?\n')
+    if Choice=='encrypt':
+        text=input('Enter your message\n')
+        key=int(input('Enter key value\n'))
+        plain_text=text
+        shift_key=key
+        encrypt(plain_text,shift_key)
+    elif Choice=='decrypt':
+        text=input('Enter your cipher text\n')
+        key=int(input('Enter key value\n'))
+        cipher_text=text
+        shift_key=key
+        decrypt(cipher_text,shift_key)
+    option=input("Do you want to continue? Press yes or no: \n")
+    if option=='no':
+        EOP=True
+        print('Have a nice day bye....')
+
+
+
+8.
+
+
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.asymmetric import rsa
+
+# Generate a private key
+private_key = rsa.generate_private_key(
+    public_exponent=65537,
+    key_size=2048,
+    backend=default_backend()
+)
+
+# Get the public key from the private key
+public_key = private_key.public_key()
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding
+
+# The message to be signed
+message = b"A message I want to sign"
+
+# The padding scheme to use
+pss = padding.PSS(
+    mgf=padding.MGF1(hashes.SHA256()),
+    salt_length=padding.PSS.MAX_LENGTH
+)
+
+# The hash algorithm to use
+sha256 = hashes.SHA256()
+
+# Sign the message with the private key
+signature = private_key.sign(message, pss, sha256)
+# Verify the signature with the public key
+try:
+    public_key.verify(signature, message, pss, sha256)
+    print("The signature is valid.")
+except:
+    print("The signature is invalid.")
+
+
+
+
+
+9.  
+
+import itertools
+import time
+
+# The password to crack
+password = input("Enter the password to crack: ")
+
+# The characters to use in the brute force attack
+chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()"
+
+# Start the timer
+start = time.time()
+
+# Initialize the number of attempts
+attempts = 0
+
+# Loop through the possible lengths of the password
+for length in range(1, len(password) + 1):
+    # Loop through the product of the characters and the length
+    for guess in itertools.product(chars, repeat=length):
+        # Increment the number of attempts
+        attempts += 1
+        # Join the characters into a string
+        guess = "".join(guess)
+        # Check if the guess matches the password
+        if guess == password:
+            # Stop the timer
+            end = time.time()
+            # Print the result
+            print(f"Password cracked: {guess}")
+            print(f"Number of attempts: {attempts}")
+            print(f"Time elapsed: {end - start} seconds")
+            # Exit the loop
+            break
+    else:
+        # Continue the loop if no match was found
+        continue
+    # Break the loop if a match was found
+    break
