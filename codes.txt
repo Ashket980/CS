@@ -1,5 +1,5 @@
 
-1.
+1.client server communication
 
  import socket
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -39,7 +39,7 @@ s.close()
 
 
 
-2.
+2.chat room
 
 
 
@@ -84,7 +84,7 @@ client_sockets.close()
 
 
 
-3.
+3.ad 2 no
 
 //client
 import socket
@@ -127,7 +127,7 @@ client_sockets.close()
 
 
 
-4.
+4.transfer file
 
 
 //server
@@ -234,7 +234,7 @@ echo "first = $first, second = $second"
 
 
 
-7. 
+7. rsa and ceaser cipher
 
  import math
 
@@ -328,7 +328,7 @@ while not EOP:
 
 
 
-8.
+8.digital signature
 
 
 from cryptography.hazmat.backends import default_backend
@@ -371,7 +371,7 @@ except:
 
 
 
-9.  
+9.  password cracking
 
 import itertools
 import time
